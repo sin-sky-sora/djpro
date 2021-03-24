@@ -9,6 +9,7 @@ django-3-jet = "*"
 django-tailwind = "*"
 gunicorn = "*"
 feedparser = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
