@@ -9,13 +9,23 @@ services:
     volumes:
      - ".:/apps"
     ports:
-     - "80:80"
      - "8000:8000"
     depends_on:
      - db
     links:
      - db
     command: pipenv run start
+    tty: true
+    stdin_open: true
+  web:
+    image: nginx:1.19.8-alpine
+    ports:
+     - "8080:80"
+    depends_on:
+     - app
+    volumes:
+     - "./nginx/cond:/etc/nginx/conf.d"
+     - "./nginx/uwsgi_params:/etc/nginx/uwsgi_params"
     tty: true
     stdin_open: true
   db:

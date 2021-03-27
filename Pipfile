@@ -17,7 +17,7 @@ psycopg2-binary = "*"
 python_version = "3.9"
 
 [scripts]
-start = "python djapps/manage.py runserver 0.0.0.0:80"
+start = "python djapps/manage.py runserver 0.0.0.0:8000"
 shell = "python djapps/manage.py shell"
 build = "python djapps/manage.py tailwind build"
 collect = "python djapps/manage.py collectstatic"
