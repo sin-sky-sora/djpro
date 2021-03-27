@@ -1,5 +1,4 @@
 version: "3"
-
 volumes:
   db-data:
 
@@ -17,17 +16,24 @@ services:
     command: pipenv run start
     tty: true
     stdin_open: true
+    #networks:
+    # - fpp
+    #  sample-net:
+    #    ipv4_address: 172.16.10.3
   web:
     image: nginx:1.19.8-alpine
     ports:
-     - "8080:80"
+     - "80:80"
     depends_on:
      - app
     volumes:
-     - "./nginx/cond:/etc/nginx/conf.d"
-     - "./nginx/uwsgi_params:/etc/nginx/uwsgi_params"
+     - "./nginx/conf.d:/etc/nginx/conf.d/"
+    # - "./nginx/uwsgi_params:/etc/nginx/uwsgi_params"
     tty: true
     stdin_open: true
+    #networks:
+    #  sample-net:
+    #    ipv4_address: 172.16.10.5
   db:
     image: postgres
     environment:
@@ -35,3 +41,12 @@ services:
      - "POSTGRES_PASSWORD=postgres"
     volumes:
      - "db-data:/var/lib/postgresql/data"
+
+#networks:
+#  sample-net:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#       - subnet: 172.16.10.0/24
+#       - gateway: 172.16.10.1
